@@ -69,17 +69,17 @@ def generate_launch_description():
         prefix="chrt -rr 99"  # launch with realtime priority, requries to set rtprio in /etc/security/limits.conf, e.g. <user> - rtprio 99
     )
 
+    joint_state_broadcaster = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+    
     robot_state_publisher = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
         parameters=[robot_description]
-    )
-
-    joint_state_broadcaster = Node(
-        package="controller_manager",
-        executable="spawner.py",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
     controller = Node(
